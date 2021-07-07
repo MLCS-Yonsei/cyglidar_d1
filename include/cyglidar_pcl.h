@@ -84,6 +84,7 @@ static boost::array<uint8_t, 8> PACKET_START_DUAL = { PACKET_HEADER_0, PACKET_HE
 static boost::array<uint8_t, 8> PACKET_STOP = { PACKET_HEADER_0, PACKET_HEADER_1, PACKET_HEADER_2, 0x02, 0x00, 0x02, 0x00, 0x00 };
 
 static boost::array<uint8_t, 8> PACKET_FREQUENCY = { PACKET_HEADER_0, PACKET_HEADER_1, PACKET_HEADER_2, 0x02, 0x00, 0x0F, 0x00, 0x00 };
+static boost::array<uint8_t, 8> PACKET_SENSITIVITY = { PACKET_HEADER_0, PACKET_HEADER_1, PACKET_HEADER_2, 0x02, 0x00, 0x11, 0x00, 0x00 };
 static boost::array<uint8_t, 9> PACKET_INTEGRATION_TIME = { PACKET_HEADER_0, PACKET_HEADER_1, PACKET_HEADER_2, 0x03, 0x00, 0x0C, 0x00, 0x00, 0x00 };
 
 static boost::array<char, HEX_SIZE_TWO> MSB_BUFFER, LSB_BUFFER;
@@ -127,6 +128,11 @@ class cyglidar_pcl
         * @brief Send a packet to assign a frequency level
         */
       void packet_frequency(int frequency);
+  
+      /**
+        * @brief Send a packet to assign a frequency level
+        */
+      void packet_sensitivity(int sensitivity);
 
       /**
         * @brief Close the driver down and prevent the polling loop from advancing
