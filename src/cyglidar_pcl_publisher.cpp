@@ -241,7 +241,7 @@ uint8_t cloudScatter_3D()
     }
 }
 
-int VERSION_NUM, FREQUENCY_LEVEL, PULSE_CONTROL, PULSE_DURATION;
+int VERSION_NUM, FREQUENCY_LEVEL, SENSITIVITY_LEVEL, PULSE_CONTROL, PULSE_DURATION;
 void running()
 {
     ros::NodeHandle nh;
@@ -257,12 +257,13 @@ void running()
 
     priv_nh.param("version", VERSION_NUM, 0);
     priv_nh.param("frequency", FREQUENCY_LEVEL, 0);
+    priv_nh.param("sensitivity", SENSITIVITY_LEVEL, 20);
     priv_nh.param("pulse_control", PULSE_CONTROL, 0);
     priv_nh.param("duration", PULSE_DURATION, 0);
 
 
-    ROS_INFO("FREQUENCY: %d (%x) / PULSE CONTROL: %d, DURATION: %d (%x)", \
-    FREQUENCY_LEVEL, FREQUENCY_LEVEL, \
+    ROS_INFO("FREQUENCY: %d (%x) / SENSITIVITY: %d / PULSE CONTROL: %d, DURATION: %d (%x)", \
+    FREQUENCY_LEVEL, FREQUENCY_LEVEL, SENSITIVITY_LEVEL \
     PULSE_CONTROL, PULSE_DURATION, PULSE_DURATION);
 
     colorBuffer();
@@ -315,6 +316,8 @@ void running()
         laser.packet_run(VERSION_NUM);
         ros::Duration(1.0).sleep();
         laser.packet_frequency(FREQUENCY_LEVEL);
+        ros::Duration(1.0).sleep();
+        laser.packet_sensitivity(SENSITIVITY_LEVEL);
         ros::Duration(1.0).sleep();
         laser.packet_pulse(VERSION_NUM, PULSE_CONTROL, PULSE_DURATION);
 
