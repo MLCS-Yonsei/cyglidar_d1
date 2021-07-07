@@ -305,6 +305,29 @@ namespace cyglidar_pcl_driver
         }
         printf("\n");
     }
+	
+    void cyglidar_pcl::packet_sensitivity(int sensitivity)
+    {
+        PACKET_FREQUENCY[6] = DecimalToHex(sensitivity);
+            
+        checkSum = 0x00;
+        for (size_t t = 3; t < PACKET_SENSITIVITY.size() - 1; t++)
+        {
+            checkSum ^= PACKET_SENSITIVITY[t];
+        }
+        PACKET_SENSITIVITY[PACKET_SENSITIVITY.size() - 1] = checkSum;
+
+        boost::asio::write(serial_, boost::asio::buffer(PACKET_SENSITIVITY));
+        ROS_INFO("PACKET_SENSITIVITY HAS BEEN UPDATED [%d]", sensitivity);
+
+        printf("\tPACKET: ");
+        for (size_t buf = 0; buf < PACKET_SENSITIVITY.size(); buf++)
+        {
+            printf("%x", PACKET_SENSITIVITY[buf]);
+            if (buf < (PACKET_SENSITIVITY.size() - 1)) printf(",");
+        }
+        printf("\n");
+    }
 
     void cyglidar_pcl::close()
     {
