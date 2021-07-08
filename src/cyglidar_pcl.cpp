@@ -308,7 +308,7 @@ namespace cyglidar_pcl_driver
 	
     void cyglidar_pcl::packet_sensitivity(int sensitivity)
     {
-        PACKET_FREQUENCY[6] = DecimalToHex(sensitivity);
+        PACKET_SENSITIVITY[6] = DecimalToHex(sensitivity);
             
         checkSum = 0x00;
         for (size_t t = 3; t < PACKET_SENSITIVITY.size() - 1; t++)

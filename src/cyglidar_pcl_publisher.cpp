@@ -313,11 +313,11 @@ void running()
     try
     {
         cyglidar_pcl_driver::cyglidar_pcl laser(port, baud_rate, io);
+        laser.packet_sensitivity(SENSITIVITY_VALUE);
+        ros::Duration(1.0).sleep();
         laser.packet_run(VERSION_NUM);
         ros::Duration(1.0).sleep();
         laser.packet_frequency(FREQUENCY_LEVEL);
-        ros::Duration(1.0).sleep();
-        laser.packet_sensitivity(SENSITIVITY_VALUE);
         ros::Duration(1.0).sleep();
         laser.packet_pulse(VERSION_NUM, PULSE_CONTROL, PULSE_DURATION);
 
